@@ -1,47 +1,28 @@
 services:
 
-  db:
+  mariadb:
     image: mariadb:latest
-    container_name: seafile-mysql
-    restart: unless-stopped    
+    container_name: seafile-db
+    restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=db_dev  # Requested, set the root's password of MySQL service.
-      - MYSQL_LOG_CONSOLE=true
+      - MYSQL_ROOT_PASSWORD=p4ssw0rd
     volumes:
-      - /opt/seafile-mysql/db:/var/lib/mysql  # Requested, specifies the path to MySQL data persistent store.
-    networks:
-      - seafile-net
-
-  memcached:
-    image: memcached:latest
-    container_name: seafile-memcached
-    restart: unless-stopped    
-    entrypoint: memcached -m 256
-    networks:
-      - seafile-net
+      - ./seafile-db:/var/lib/mysql
           
   seafile:
     image: seafileltd/seafile-mc:11.0-latest
     container_name: seafile
-    restart: unless-stopped    
+    restart: unless-stopped
     ports:
       - "8200:80"
-#      - "8443:443"  # If https is enabled, cancel the comment.
+#      - "8443:443"
     volumes:
-      - ./seafile-data:/shared   # Requested, specifies the path to Seafile data persistent store.
+      - ./seafile-data:/shared
     environment:
-      - DB_HOST=db
-      - DB_ROOT_PASSWD=db_dev  # Requested, the value shuold be root's password of MySQL service.
-      - TIME_ZONE=Europe/Madrid  # Optional, default is UTC. Should be uncomment and set to your local time zone.
-      - SEAFILE_ADMIN_EMAIL=me@example.com # Specifies Seafile admin user, default is 'me@example.com'.
-      - SEAFILE_ADMIN_PASSWORD=asecret     # Specifies Seafile admin password, default is 'asecret'.
-      - SEAFILE_SERVER_LETSENCRYPT=false   # Whether to use https or not.
-#      - SEAFILE_SERVER_HOSTNAME=seafile.example.com # Specifies your host name if https is enabled.
+      - DB_HOST=mariadb
+      - DB_ROOT_PASSWD=p4ssw0rd
+      - TIME_ZONE=Europe/Madrid
+      - SEAFILE_ADMIN_EMAIL=me@example.com
+      - SEAFILE_ADMIN_PASSWORD=asecret
     depends_on:
-      - db
-      - memcached
-    networks:
-      - seafile-net
-
-networks:
-  seafile-net:
+      - mariadb

@@ -24,5 +24,6 @@ services:
       - TIME_ZONE=Europe/Madrid
       - SEAFILE_ADMIN_EMAIL=me@example.com
       - SEAFILE_ADMIN_PASSWORD=asecret
+      - SEAFILE_SERVER_LETSENCRYPT=false​
     depends_on:
       - mariadb

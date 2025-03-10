@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     ports:
       - "8200:80"
-#      - "8443:443"
+      - "8443:443"
     volumes:
       - ./seafile-data:/shared
     environment:

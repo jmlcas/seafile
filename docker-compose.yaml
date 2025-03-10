@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     ports:
       - "8200:80"
-      - "8443:443"
+#     - "8443:443"    # If https is enabled, cancel the comment.
     volumes:
       - ./seafile-data:/shared
     environment:
@@ -25,5 +25,6 @@ services:
       - SEAFILE_ADMIN_EMAIL=me@example.com
       - SEAFILE_ADMIN_PASSWORD=asecret
       - SEAFILE_SERVER_LETSENCRYPT=false​
+      - SEAFILE_SERVER_HOSTNAME=docs.seafile.com    # Specifies your host name if https is enabled.      
     depends_on:
       - mariadb

@@ -9,8 +9,6 @@ services:
       - MARIADB_AUTO_UPGRADE=1
     volumes:
       - ./seafile-mysql/db:/var/lib/mysql  # Required, specifies the path to MySQL data persistent store.
-    networks:
-      - seafile-net
 
   memcached:
     image: memcached:1.6.18
@@ -24,7 +22,7 @@ services:
       - "8200:80"
 #     - "443:443"  # If https is enabled, cancel the comment.
     volumes:
-      -./seafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
+      - ./seafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
     environment:
       - DB_HOST=db
       - DB_ROOT_PASSWD=db_dev  # Required, the value should be root's password of MySQL service.

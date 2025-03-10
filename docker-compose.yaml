@@ -1,7 +1,7 @@
 services:
 
   db:
-    image: mariadb:10.11
+    image: mariadb:latest
     container_name: seafile-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=db_dev  # Required, set the root's password of MySQL service.
@@ -11,7 +11,7 @@ services:
       - ./seafile-mysql/db:/var/lib/mysql  # Required, specifies the path to MySQL data persistent store.
 
   memcached:
-    image: memcached:1.6.18
+    image: memcached:latest
     container_name: seafile-memcached
     entrypoint: memcached -m 256
           

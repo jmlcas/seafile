@@ -7,6 +7,7 @@ services:
       - MYSQL_ROOT_PASSWORD=db_dev  # Required, set the root's password of MySQL service.
       - MYSQL_LOG_CONSOLE=true
       - MARIADB_AUTO_UPGRADE=1
+    restart: unless-stopped      
     volumes:
       - ./seafile-mysql/db:/var/lib/mysql  # Required, specifies the path to MySQL data persistent store.
 
@@ -14,13 +15,15 @@ services:
     image: memcached:latest
     container_name: seafile-memcached
     entrypoint: memcached -m 256
-          
+    restart: unless-stopped
+    
   seafile:
-    image: seafileltd/seafile-mc:11.0-latest
+    image: seafileltd/seafile-mc:13.0-latest
     container_name: seafile
     ports:
       - "8200:80"
 #     - "8243:443"  # If https is enabled, cancel the comment.
+    restart: unless-stopped
     volumes:
       - ./sopt/eafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
     environment:
@@ -34,4 +37,5 @@ services:
     depends_on:
       - db
       - memcached
+
 

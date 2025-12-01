@@ -25,7 +25,7 @@ services:
 #     - "8243:443"  # If https is enabled, cancel the comment.
     restart: unless-stopped
     volumes:
-      - ./sopt/eafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
+      - ./opt/seafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
     environment:
       - DB_HOST=db
       - DB_ROOT_PASSWD=db_dev  # Required, the value should be root's password of MySQL service.
@@ -37,5 +37,6 @@ services:
     depends_on:
       - db
       - memcached
+
 
 

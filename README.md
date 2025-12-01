@@ -7,7 +7,7 @@ Usuario: me@example.com
 Password: asecret
 
 ----------------
-Agregar OnlyOffice
+### Agregar OnlyOffice
 
 Configure Seafile Server 
 Agregar estas líneas en  seahub_settings.py.

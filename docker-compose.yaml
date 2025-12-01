@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     
   seafile:
-    image: seafileltd/seafile-mc:13.0-latest
+    image: seafileltd/seafile-mc:latest
     container_name: seafile
     ports:
       - "8200:80"
@@ -37,6 +37,7 @@ services:
     depends_on:
       - db
       - memcached
+
 
 
 

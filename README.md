@@ -12,7 +12,7 @@ Agregar OnlyOffice
 Configure Seafile Server 
 Agregar estas líneas en  seahub_settings.py.
 
-# Enable Only Office
+### Enable Only Office
 ENABLE_ONLYOFFICE = True
 VERIFY_ONLYOFFICE_CERTIFICATE = False
 ONLYOFFICE_APIJS_URL = 'http{s}://{your OnlyOffice server's domain or IP}/web-apps/apps/api/documents/api.js'

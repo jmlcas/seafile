@@ -10,6 +10,7 @@ Password: asecret
 ### Agregar OnlyOffice
 
 Configure Seafile Server 
+
 Agregar estas líneas en  seahub_settings.py.
 
 ### Enable Only Office

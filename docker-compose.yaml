@@ -20,9 +20,9 @@ services:
     container_name: seafile
     ports:
       - "8200:80"
-#     - "443:443"  # If https is enabled, cancel the comment.
+#     - "8243:443"  # If https is enabled, cancel the comment.
     volumes:
-      - ./seafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
+      - ./sopt/eafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
     environment:
       - DB_HOST=db
       - DB_ROOT_PASSWD=db_dev  # Required, the value should be root's password of MySQL service.
@@ -34,3 +34,4 @@ services:
     depends_on:
       - db
       - memcached
+

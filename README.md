@@ -22,8 +22,6 @@ Agregar estas líneas en  /root/seafile/opt/seafile-data/seafile/conf/seahub_set
 
 ENABLE_ONLYOFFICE = True
 
-VERIFY_ONLYOFFICE_CERTIFICATE = False
-
 ONLYOFFICE_APIJS_URL = 'http{s}://{your OnlyOffice server's domain or IP}/web-apps/apps/api/documents/api.js'
 
 ONLYOFFICE_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'odt', 'fodt', 'odp', 'fodp', 'ods', 'fods')
@@ -32,4 +30,3 @@ ONLYOFFICE_EDIT_FILE_EXTENSION = ('doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx')
 
 ONLYOFFICE_JWT_SECRET = my_secret
 
-ONLYOFFICE_FORCE_SAVE = True

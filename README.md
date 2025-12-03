@@ -18,7 +18,6 @@ Configure Seafile Server
 
 Agregar estas líneas en  /root/seafile/opt/seafile-data/seafile/conf/seahub_settings.py.
 
-### Enable Only Office
 
 ENABLE_ONLYOFFICE = True
 

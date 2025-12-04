@@ -2,42 +2,65 @@ services:
 
   db:
     image: mariadb:latest
-    container_name: seafile-mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=db_dev  # Required, set the root's password of MySQL service.
-      - MYSQL_LOG_CONSOLE=true
-      - MARIADB_AUTO_UPGRADE=1
-    restart: unless-stopped      
+    container_name: seafile-db
+    hostname: seafile-db
     volumes:
-      - ./seafile-mysql/db:/var/lib/mysql  # Required, specifies the path to MySQL data persistent store.
+      - ./seafile/db:/var/lib/mysql:rw
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: seafile_db
+      MYSQL_USER: seafileuser
+      MYSQL_PASSWORD: seafilepassword
+      TZ: Europe/Madrid
+    restart: unless-stopped
 
-  memcached:
-    image: memcached:latest
-    container_name: seafile-memcached
-    entrypoint: memcached -m 256
+  redis:
+    image: redis:latest
+    container_name: seafile-redis
+    command:
+      - /bin/sh
+      - -c
+      - redis-server --requirepass redispass
+    volumes:
+      - ./seafile/redis:/data:rw
+    environment:
+      REDIS_PASSWORD: redispass
     restart: unless-stopped
     
   seafile:
-    image: seafileltd/seafile-mc:latest
+    image: seafileltd/seafile-mc:13.0-latest
     container_name: seafile
+    volumes:
+      - ./opt/seafile-data:/shared:rw
     ports:
       - "8200:80"
-#     - "8243:443"  # If https is enabled, cancel the comment.
-    restart: unless-stopped
-    volumes:
-      - ./opt/seafile-data:/shared   # Required, specifies the path to Seafile data persistent store.
     environment:
-      - DB_HOST=db
-      - DB_ROOT_PASSWD=db_dev  # Required, the value should be root's password of MySQL service.
-      - TIME_ZONE=Europe/Madrid  # Optional, default is UTC. Should be uncomment and set to your local time zone.
-      - SEAFILE_ADMIN_EMAIL=me@example.com # Specifies Seafile admin user, default is 'me@example.com'.
-      - SEAFILE_ADMIN_PASSWORD=asecret     # Specifies Seafile admin password, default is 'asecret'.
-      - SEAFILE_SERVER_LETSENCRYPT=false   # Whether to use https or not.
-      - SEAFILE_SERVER_HOSTNAME=docs.seafile.com # Specifies your host name if https is enabled.
+       INIT_SEAFILE_MYSQL_ROOT_PASSWORD: rootpass
+       SEAFILE_MYSQL_DB_HOST: seafile-db
+       SEAFILE_MYSQL_DB_USER: seafileuser
+       SEAFILE_MYSQL_DB_PORT: 3306
+       SEAFILE_MYSQL_DB_PASSWORD: seafilepassword
+       SEAFILE_MYSQL_DB_SEAFILE_DB_NAME: seafile_db
+       SEAFILE_MYSQL_DB_CCNET_DB_NAME: ccnet_db
+       SEAFILE_MYSQL_DB_SEAHUB_DB_NAME: seahub_db
+       CACHE_PROVIDER: redis
+       REDIS_HOST: redis
+       REDIS_PORT: 6379
+       REDIS_PASSWORD: redispass
+       TIME_ZONE: Europe/Madrid
+       SEAFILE_VOLUME: /opt/seafile-data
+       SEAFILE_MYSQL_VOLUME: /opt/seafile-mysql/db
+       INIT_SEAFILE_ADMIN_EMAIL: admin@example.com
+       INIT_SEAFILE_ADMIN_PASSWORD: p4ssw0rd
+       JWT_PRIVATE_KEY: dOxZYTTZgXKMHkqLBIQVImayQXAVWdzGBPuFJKggzcgvgPJPXpWzqzKaUOIOGGIr
+       SEADOC_VOLUME: /opt/seadoc-data
+       SEADOC_IMAGE: seafileltd/sdoc-server:2.0-latest
+       ENABLE_SEADOC: false #or true
+       SEADOC_SERVER_URL: https://seafile.yourname.synology.me/sdoc-server
+       SEAFILE_SERVER_HOSTNAME: localhost:8200
+       SEAFILE_SERVER_PROTOCOL: http
+       FORCE_HTTPS_IN_CONF: false #true
+       SEAFILE_SERVER_LETSENCRYPT: false
     depends_on:
       - db
-      - memcached
-
-
-
-
+      - redis

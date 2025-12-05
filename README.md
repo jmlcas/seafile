@@ -1,6 +1,6 @@
 # Seafile
 
-Modificar datos en las líneas: 53, 54, 60 y 61  (55 y 61 si lo crees conveniente)
+Modificar datos en las líneas: 53, 54, 60 y 61  (55 si lo crees conveniente)
 
 -----------------------------
 

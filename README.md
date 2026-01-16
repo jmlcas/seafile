@@ -13,3 +13,8 @@ Ver en "http://localhost:8200"
 Usuario: admin@example.com
 
 Password: p4ssw0rd
+
+------------------
+Ver vídeo:
+
+[![Alt text](https://img.youtube.com/vi/v6O0y2TAE_A/0.jpg)](https://www.youtube.com/watch?v=v6O0y2TAE_A)

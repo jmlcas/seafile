@@ -1,6 +1,6 @@
 # Seafile
 
-Modificar datos en las líneas: 54, 55, 60 y 61
+Modificar datos en las líneas: 54, 55, 61 y 62
 
 Línea 56, si lo crees conveniente, puedes generar una clave con este comando "openssl rand -base64 32"
 

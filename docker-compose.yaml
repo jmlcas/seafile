@@ -26,7 +26,7 @@ services:
     environment:
       REDIS_PASSWORD: redispass
     restart: unless-stopped
-    
+
   seafile:
     image: seafileltd/seafile-mc:13.0-latest
     container_name: seafile
@@ -34,10 +34,10 @@ services:
       - ./opt/seafile-data:/shared:rw
     ports:
       - "8200:80"
-    restart: unless-stopped      
+    restart: unless-stopped
     environment:
        INIT_SEAFILE_MYSQL_ROOT_PASSWORD: rootpass
-       SEAFILE_MYSQL_DB_HOST: seafile-db
+       SEAFILE_MYSQL_DB_HOST: db
        SEAFILE_MYSQL_DB_USER: seafileuser
        SEAFILE_MYSQL_DB_PORT: 3306
        SEAFILE_MYSQL_DB_PASSWORD: seafilepassword

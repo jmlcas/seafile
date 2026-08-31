@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
     environment:
        INIT_SEAFILE_MYSQL_ROOT_PASSWORD: rootpass
-       SEAFILE_MYSQL_DB_HOST: db
+       SEAFILE_MYSQL_DB_HOST: seafile-db
        SEAFILE_MYSQL_DB_USER: seafileuser
        SEAFILE_MYSQL_DB_PORT: 3306
        SEAFILE_MYSQL_DB_PASSWORD: seafilepassword
